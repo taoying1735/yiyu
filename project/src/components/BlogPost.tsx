@@ -138,10 +138,47 @@ export const BlogPost: React.FC = () => {
               </header>
 
               {/* 文章正文 */}
-              <div
-                className="prose prose-lg prose-rose max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-rose-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-li:text-gray-700"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <div className="article-content">
+                <div
+                  className="prose prose-xl prose-rose max-w-none
+                    prose-headings:text-gray-900
+                    prose-headings:font-bold
+                    prose-p:text-gray-700
+                    prose-p:leading-[1.8]
+                    prose-p:text-base
+                    prose-p:mb-6
+                    prose-a:text-rose-600
+                    prose-a:font-medium
+                    hover:prose-a:underline
+                    prose-strong:text-gray-900
+                    prose-strong:font-bold
+                    prose-ul:text-gray-700
+                    prose-ul:space-y-4
+                    prose-ul:my-8
+                    prose-li:text-gray-700
+                    prose-li:leading-[1.8]
+                    prose-li:mb-2
+                    prose-li:before:text-rose-500
+                    prose-li:before:text-xl
+                    prose-blockquote:border-l-4
+                    prose-blockquote:border-rose-300
+                    prose-blockquote:bg-rose-50
+                    prose-blockquote:rounded-r-lg
+                    prose-blockquote:pl-6
+                    prose-blockquote:py-4
+                    prose-blockquote:my-8
+                    prose-blockquote:text-gray-700
+                    prose-blockquote:not-italic
+                    prose-code:text-rose-600
+                    prose-code:bg-rose-100
+                    prose-code:px-3
+                    prose-code:py-1
+                    prose-code:rounded-md
+                    prose-code:text-sm
+                    prose-code:font-mono"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
+              </div>
 
               {/* 文章底部互动区域 */}
               <div className="mt-16 pt-8 border-t-2 border-gray-100">
