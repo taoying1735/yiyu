@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { assessmentVersions } from '../data/assessmentVersions';
+import { blogPosts } from '../data/blogPosts';
 import { Disclaimer } from './Disclaimer';
 import { EmergencyContacts } from './EmergencyContacts';
-import { ArrowRight, RefreshCcw, AlertTriangle, Clock, Activity, Stethoscope, BookOpen, Brain, CheckCircle2, Timer, FileSpreadsheet, Sparkles, Target, Microscope, Shield, Home, Book } from 'lucide-react';
+import { ArrowRight, RefreshCcw, AlertTriangle, Clock, Activity, Stethoscope, BookOpen, Brain, CheckCircle2, Timer, FileSpreadsheet, Sparkles, Target, Microscope, Shield, Home, Book, Calendar, User } from 'lucide-react';
 import { AssessmentVersion } from '../types';
 
 const Assessment: React.FC = () => {
@@ -267,6 +269,56 @@ const Assessment: React.FC = () => {
                   <p className="mt-2 text-sm text-gray-500">提供个性化的改善建议和资源推荐</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* 最新文章板块 */}
+          <div className="mt-12 bg-white rounded-xl shadow-sm p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">最新心理健康文章</h3>
+              <Link
+                to="/blog"
+                className="text-blue-600 hover:text-blue-700 font-medium flex items-center"
+              >
+                查看全部
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {blogPosts.slice(0, 3).map((post) => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.id}`}
+                  className="group block bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <div className="flex items-center text-sm text-gray-500 mb-3">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    <span className="mr-4">{new Date(post.date).toLocaleDateString('zh-CN')}</span>
+                    <User className="h-4 w-4 mr-1" />
+                    <span>{post.author}</span>
+                  </div>
+
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {post.title}
+                  </h4>
+
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 text-xs text-blue-600 bg-blue-50 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>

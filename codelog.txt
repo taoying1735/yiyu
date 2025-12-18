@@ -1,0 +1,8 @@
+2025-12-17:
+- 增加博客功能模块
+  - 安装依赖: react-router-dom, react-helmet-async
+  - 创建数据文件: src/data/blogPosts.ts (包含心理测试相关 SEO 关键词)
+  - 创建组件: src/components/BlogList.tsx (博客列表页)
+  - 创建组件: src/components/BlogPost.tsx (博客详情页)
+  - 修改入口: src/main.tsx (添加 HelmetProvider)
+  - 重构应用: src/App.tsx (添加路由配置和导航栏，整合 Assessment 和 Blog 模块)
