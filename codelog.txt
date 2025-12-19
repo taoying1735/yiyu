@@ -1,8 +1,12 @@
-2025-12-17:
-- 增加博客功能模块
-  - 安装依赖: react-router-dom, react-helmet-async
-  - 创建数据文件: src/data/blogPosts.ts (包含心理测试相关 SEO 关键词)
-  - 创建组件: src/components/BlogList.tsx (博客列表页)
-  - 创建组件: src/components/BlogPost.tsx (博客详情页)
-  - 修改入口: src/main.tsx (添加 HelmetProvider)
-  - 重构应用: src/App.tsx (添加路由配置和导航栏，整合 Assessment 和 Blog 模块)
+2025-12-19 修复UI样式丢失问题
+- 修改文件: tailwind.config.js -> tailwind.config.cjs
+- 修改文件: postcss.config.js -> postcss.config.cjs
+- 修改内容: 
+  1. 修正 content 路径配置，去除错误的 project/ 前缀。
+  2. 将配置文件转换为 .cjs 格式并使用 module.exports，以提高在 Windows 环境下的兼容性。
+  3. 在 index.css 中添加了调试标记（红色顶栏），用于验证 CSS 是否成功加载。
+- 原因: 
+  1. 路径错误导致 Tailwind 无法扫描到源文件，不生成样式。
+  2. ESM 格式的配置文件在某些开发环境下可能解析异常。
+- 验证: 运行 npm run build 成功生成约 34KB 的 CSS。
+- 额外操作: 运行了 npx vite --force 以强制刷新开发服务器缓存。

@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 调试标记：如果 CSS 加载成功，页面顶部会出现一个红条 */
-body::before {
-  content: "CSS 样式已加载";
-  display: block;
-  height: 30px;
-  background: #ef4444;
-  color: white;
-  text-align: center;
-  line-height: 30px;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-}
-
 /* 基础样式重置和优化 */
 @layer base {
   * {
