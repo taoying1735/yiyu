@@ -2,11 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 自定义文章排版样式 */
+/* 调试标记：如果 CSS 加载成功，页面顶部会出现一个红条 */
+body::before {
+  content: "CSS 样式已加载";
+  display: block;
+  height: 30px;
+  background: #ef4444;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+/* 基础样式重置和优化 */
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
   /* 文章内容的基础样式 */
   .article-content {
     @apply leading-relaxed;
+    /* 防止过度滚动 */
+    overflow-x: hidden;
   }
 
   /* 优化段落间距 */
@@ -65,6 +91,7 @@
   }
 }
 
+/* 组件样式 */
 @layer components {
   /* 文章引用样式 */
   .prose blockquote {
@@ -80,8 +107,27 @@
   .prose a {
     @apply text-rose-600 hover:text-rose-700 transition-colors duration-200 underline-offset-4 hover:underline;
   }
+
+  /* 按钮基础样式 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-gray-700 font-medium rounded-lg border-2 border-gray-200 hover:border-blue-300 hover:text-blue-600 transform hover:scale-105 transition-all duration-200;
+  }
+
+  /* 卡片样式 */
+  .card {
+    @apply bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200;
+  }
+
+  .card-elevated {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200;
+  }
 }
 
+/* 工具类样式 */
 @layer utilities {
   /* 文章卡片悬停效果 */
   .article-card-hover {
@@ -91,5 +137,62 @@
   /* 渐变文字效果 */
   .gradient-text {
     @apply bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent;
+  }
+
+  /* 加载动画 */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-b-2 border-blue-600;
+  }
+
+  /* 响应式隐藏/显示 */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden sm:block;
+  }
+
+  /* 安全区域适配 */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* 性能优化 */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-scroll {
+    will-change: scroll-position;
+  }
+}
+
+/* 深色模式支持（预留） */
+@media (prefers-color-scheme: dark) {
+  /* 暂时不启用深色模式，保持当前设计 */
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    @apply border-2 border-blue-800;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-gray-600;
+  }
+}
+
+/* 减少动画效果（用户偏好） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

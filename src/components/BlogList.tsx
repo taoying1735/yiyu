@@ -13,10 +13,21 @@ export const BlogList: React.FC = () => {
     return readingTime;
   };
 
-  // 按日期降序排序文章，最新的在前
-  const sortedBlogPosts = [...blogPosts].sort((a, b) => 
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  // 按日期降序排序文章，最新的在前。如果日期相同，按id降序排序
+  const sortedBlogPosts = [...blogPosts].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    // 首先按日期降序排序
+    if (dateB.getTime() !== dateA.getTime()) {
+      return dateB.getTime() - dateA.getTime();
+    }
+
+    // 如果日期相同，按id降序排序（这样后添加的文章会在前面）
+    if (a.id < b.id) return 1;
+    if (a.id > b.id) return -1;
+    return 0;
+  });
 
   return (
     <>
@@ -60,8 +71,13 @@ export const BlogList: React.FC = () => {
 
         {/* 文章列表 */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {sortedBlogPosts.map((post) => (
+          {sortedBlogPosts.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-gray-500 text-lg">暂无文章</p>
+            </div>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {sortedBlogPosts.map((post, index) => (
               <article
                 key={post.id}
                 className="group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
@@ -70,9 +86,11 @@ export const BlogList: React.FC = () => {
                 <div className="relative h-48 bg-gradient-to-br from-rose-300 via-pink-300 to-purple-400 p-6">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                   <div className="absolute top-4 right-4">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800 backdrop-blur-sm">
-                      最新
-                    </span>
+                    {index === 0 && (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-800 backdrop-blur-sm">
+                        最新
+                      </span>
+                    )}
                   </div>
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-lg font-semibold text-white line-clamp-2">
@@ -132,23 +150,24 @@ export const BlogList: React.FC = () => {
                   </Link>
                 </div>
               </article>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-          {/* 底部CTA */}
-          <div className="mt-16 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl p-8 text-center text-white">
-            <h2 className="text-2xl font-bold mb-4">准备好了解自己的心理健康状况了吗？</h2>
-            <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-              我们提供专业的心理测试和评估工具，帮助您更好地了解自己，获得个性化的健康建议。
-            </p>
-            <Link
-              to="/"
-              className="inline-flex items-center justify-center px-8 py-3 bg-white text-rose-600 font-medium rounded-full hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg"
-            >
-              开始心理评估
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+        {/* 底部CTA */}
+        <div className="mt-16 bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl p-8 text-center text-white">
+          <h2 className="text-2xl font-bold mb-4">准备好了解自己的心理健康状况了吗？</h2>
+          <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+            我们提供专业的心理测试和评估工具，帮助您更好地了解自己，获得个性化的健康建议。
+          </p>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center px-8 py-3 bg-white text-rose-600 font-medium rounded-full hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg"
+          >
+            开始心理评估
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </div>
       </div>
     </>

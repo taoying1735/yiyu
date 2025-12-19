@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
-import { Assessment } from './components/Assessment';
+import { AssessmentNew as Assessment } from './components/AssessmentNew';
 import { BlogList } from './components/BlogList';
 import { BlogPost } from './components/BlogPost';
 import { Heart, Menu, X, BookOpen, Home } from 'lucide-react';
