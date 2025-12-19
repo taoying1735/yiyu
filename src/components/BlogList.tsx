@@ -13,6 +13,11 @@ export const BlogList: React.FC = () => {
     return readingTime;
   };
 
+  // 按日期降序排序文章，最新的在前
+  const sortedBlogPosts = [...blogPosts].sort((a, b) => 
+    new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   return (
     <>
       <Helmet>
@@ -37,7 +42,7 @@ export const BlogList: React.FC = () => {
               {/* 统计信息 */}
               <div className="flex items-center justify-center space-x-8 mt-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold">{blogPosts.length}</div>
+                  <div className="text-3xl font-bold">{sortedBlogPosts.length}</div>
                   <div className="text-sm text-white/80">专业文章</div>
                 </div>
                 <div className="text-center">
@@ -56,7 +61,7 @@ export const BlogList: React.FC = () => {
         {/* 文章列表 */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
+            {sortedBlogPosts.map((post) => (
               <article
                 key={post.id}
                 className="group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
