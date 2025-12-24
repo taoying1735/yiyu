@@ -2,16 +2,16 @@ import React, { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { assessmentVersions } from '../data/assessmentVersions';
 import { blogPosts } from '../data/blogPosts';
-import { 
-  Timer, 
-  FileSpreadsheet, 
-  Microscope, 
-  CheckCircle2, 
-  Sparkles, 
-  Target, 
-  Shield, 
-  Brain, 
-  Activity, 
+import {
+  Timer,
+  FileSpreadsheet,
+  Microscope,
+  CheckCircle2,
+  Sparkles,
+  Target,
+  Shield,
+  Brain,
+  Activity,
   Stethoscope,
   ArrowRight,
   Calendar,
@@ -20,6 +20,7 @@ import {
   Book
 } from 'lucide-react';
 import { AssessmentVersion } from '../types';
+import { ResultPreview } from './ResultPreview';
 
 interface AssessmentHomeProps {
   onVersionSelect: (version: AssessmentVersion) => void;
@@ -90,7 +91,7 @@ export const AssessmentHome: React.FC<AssessmentHomeProps> = ({ onVersionSelect 
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{version.name}</h3>
                   <p className="text-gray-600 mb-6">{version.description}</p>
-                  
+
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center text-gray-600">
                       <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
@@ -113,6 +114,9 @@ export const AssessmentHome: React.FC<AssessmentHomeProps> = ({ onVersionSelect 
                     开始评估
                     <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                   </button>
+
+                  {/* 示例结果预览 */}
+                  <ResultPreview version={version} />
                 </div>
               </div>
             );

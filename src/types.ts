@@ -55,4 +55,6 @@ export interface AssessmentVersion {
   timeEstimate: string;
   questions: Question[];
   getResult: (score: number) => AssessmentResult;
+  reportType: string;
+  analysisType: string;
 }

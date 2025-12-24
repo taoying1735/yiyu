@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Home, 
   RefreshCcw, 
@@ -33,6 +33,7 @@ export const AssessmentResult: React.FC<AssessmentResultProps> = ({
   onReset,
   onVersionSelect
 }) => {
+  const navigate = useNavigate();
   const otherVersions = assessmentVersions ? assessmentVersions.filter(v => v.id !== version.id) : [];
 
   const ResultSection = ({ 
@@ -88,7 +89,7 @@ export const AssessmentResult: React.FC<AssessmentResultProps> = ({
       {/* Home Button */}
       <button
         onClick={onReset}
-        className="fixed top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow duration-200 group"
+        className="fixed top-4 right-4 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow duration-200 group z-50"
         title="返回首页"
       >
         <Home className="h-6 w-6 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
@@ -289,13 +290,13 @@ export const AssessmentResult: React.FC<AssessmentResultProps> = ({
                 重新评估
               </button>
 
-              <Link
-                to="/"
-                className="flex items-center justify-center px-8 py-3 bg-white text-gray-700 font-medium rounded-full border-2 border-gray-200 hover:border-blue-300 hover:text-blue-600 transform hover:scale-105 transition-all duration-200"
+              <button
+                onClick={() => navigate('/')}
+                className="flex items-center justify-center px-8 py-3 bg-white text-gray-700 font-medium rounded-full border-2 border-gray-200 hover:border-blue-300 hover:text-blue-600 transform hover:scale-105 transition-all duration-200 cursor-pointer"
               >
                 <Heart className="h-4 w-4 mr-2" />
                 返回首页
-              </Link>
+              </button>
 
               <button
                 onClick={handleShare}

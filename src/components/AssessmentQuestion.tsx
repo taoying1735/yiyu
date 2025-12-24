@@ -21,20 +21,6 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = ({
   const progress = ((currentQuestion + 1) / version.questions.length) * 100;
   const isLastQuestion = currentQuestion === version.questions.length - 1;
 
-  const getAnswerOptions = () => {
-    const options = [];
-    for (let i = 0; i <= version.scale.max; i++) {
-      options.push({
-        value: i,
-        label: version.scale.labels[i] || `选项 ${i}`,
-        description: version.scale.descriptions?.[i] || ''
-      });
-    }
-    return options;
-  };
-
-  const options = getAnswerOptions();
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -48,10 +34,10 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = ({
               <ArrowLeft className="h-4 w-4 mr-2" />
               返回首页
             </button>
-            
+
             <div className="flex items-center text-gray-600">
               <Clock className="h-4 w-4 mr-1" />
-              <span className="text-sm">{version.estimatedTime}</span>
+              <span className="text-sm">{version.timeEstimate}</span>
             </div>
           </div>
 
@@ -84,7 +70,7 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = ({
 
           {/* Answer Options */}
           <div className="space-y-4">
-            {options.map((option) => (
+            {question.options.map((option) => (
               <button
                 key={option.value}
                 onClick={() => onAnswer(option.value)}
@@ -93,18 +79,13 @@ export const AssessmentQuestion: React.FC<AssessmentQuestionProps> = ({
                 <div className="flex items-start">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full border-2 border-gray-300 group-hover:border-blue-500 flex items-center justify-center mr-4 mt-1">
                     <span className="text-sm font-medium text-gray-600 group-hover:text-blue-600">
-                      {option.value}
+                      {String.fromCharCode(65 + question.options.indexOf(option))}
                     </span>
                   </div>
                   <div className="flex-1">
                     <div className="text-lg font-medium text-gray-900 mb-1">
                       {option.label}
                     </div>
-                    {option.description && (
-                      <div className="text-sm text-gray-600">
-                        {option.description}
-                      </div>
-                    )}
                   </div>
                 </div>
               </button>

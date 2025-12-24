@@ -10,7 +10,9 @@ export const assessmentVersions: AssessmentVersion[] = [
     questionCount: 10,
     timeEstimate: '1分钟',
     questions: simpleQuestions,
-    getResult: getSimpleResult
+    getResult: getSimpleResult,
+    reportType: '快速筛查报告',
+    analysisType: '基础分析'
   },
   {
     id: 'standard',
@@ -19,7 +21,9 @@ export const assessmentVersions: AssessmentVersion[] = [
     questionCount: 49,
     timeEstimate: '5分钟',
     questions: standardQuestions,
-    getResult: getStandardResult
+    getResult: getStandardResult,
+    reportType: '标准评估报告',
+    analysisType: '全面分析'
   },
   {
     id: 'detailed',
@@ -28,6 +32,8 @@ export const assessmentVersions: AssessmentVersion[] = [
     questionCount: 98,
     timeEstimate: '10分钟',
     questions: detailedQuestions,
-    getResult: getDetailedResult
+    getResult: getDetailedResult,
+    reportType: '专业诊断报告',
+    analysisType: '深度分析'
   }
 ];
